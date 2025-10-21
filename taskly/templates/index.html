@@ -1,0 +1,208 @@
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+
+    <title>Taskly | Organize. Focus. Achieve.</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* GENERAL RESET */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #0a0f1e, #081a2b, #0a0f1e);
+        color: #fff;
+        overflow: hidden;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* NAVBAR */
+      .navbar {
+        background: rgba(10, 15, 30, 0.7);
+        backdrop-filter: blur(15px);
+        padding: 1rem 2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.8rem;
+        background: linear-gradient(90deg, #00eaff, #007bff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .btn-outline-light {
+        border-radius: 25px;
+        padding: 8px 20px;
+        border: 2px solid #00eaff;
+        color: #00eaff;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .btn-outline-light:hover {
+        background-color: #00eaff;
+        color: #0a0f1e;
+        box-shadow: 0 0 10px #00eaff;
+      }
+
+      .btn-custom {
+        background: linear-gradient(90deg, #00eaff, #007bff);
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 25px;
+        padding: 10px 28px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-custom:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(0, 234, 255, 0.6);
+      }
+
+      /* HERO SECTION */
+      .hero {
+        position: relative;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("{% static 'images/hero.jpg' %}") center/cover no-repeat;
+        opacity: 0.2;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 0 20px;
+        max-width: 700px;
+      }
+
+      .hero h1 {
+        font-size: 3.2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #fff;
+        text-shadow: 0 0 20px rgba(0, 234, 255, 0.4);
+      }
+
+      .hero p {
+        font-size: 1.15rem;
+        color: #d6e6f2;
+        margin-bottom: 35px;
+      }
+
+      /* Subtle floating animation for hero content */
+      @keyframes floatUp {
+        0% {
+          transform: translateY(10px);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(0px);
+          opacity: 1;
+        }
+      }
+
+      .hero-content {
+        animation: floatUp 1.5s ease-out;
+      }
+
+      /* FOOTER */
+      footer {
+        text-align: center;
+        padding: 15px 0;
+        color: #9aa6b8;
+        font-size: 0.9rem;
+        background: rgba(10, 15, 30, 0.7);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.3rem;
+        }
+        .hero p {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Taskly</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item mx-2">
+              <a class="btn btn-outline-light" href="{% url 'register' %}"
+                >Sign Up</a
+              >
+            </li>
+            <li class="nav-item mx-2">
+              <a class="btn btn-custom" href="{% url 'my-login' %}">Sign In</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Focus on What Matters</h1>
+        <p>
+          Simplify your workflow, track progress, and crush your goals — all in
+          one beautiful, powerful dashboard.
+        </p>
+        <a class="btn btn-custom" href="{% url 'register' %}">Get Started Free</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>&copy; {{ year|default:"2025" }} Taskly. All Rights Reserved.</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

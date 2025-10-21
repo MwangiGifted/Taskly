@@ -1,0 +1,159 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title>Taskly | My Tasks</title>
+
+    <!-- Bootswatch Solar Theme -->
+    <link rel="stylesheet" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+      body {
+        background: linear-gradient(135deg, #001f3f, #003366, #005f99);
+        min-height: 100vh;
+        font-family: 'Poppins', sans-serif;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+      }
+
+      h2 {
+        text-align: center;
+        font-weight: 700;
+        color: #f8f9fa;
+        margin-top: 60px;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #e0e0e0;
+        margin-bottom: 40px;
+      }
+
+      .task-card {
+        max-width: 800px;
+        margin: 20px auto;
+        background: rgba(255, 255, 255, 0.97);
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        padding: 30px 40px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .task-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+      }
+
+      .task-title {
+        font-weight: 700;
+        color: #003366;
+      }
+
+      .task-content {
+        color: #555;
+        font-size: 15px;
+        margin-top: 10px;
+        white-space: pre-wrap;
+      }
+
+      .btn {
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-weight: 500;
+        transition: 0.3s ease-in-out;
+      }
+
+      .btn-info {
+        background: linear-gradient(90deg, #007bff, #00bfff);
+        border: none;
+        color: white;
+      }
+
+      .btn-info:hover {
+        background: linear-gradient(90deg, #0056b3, #0099cc);
+      }
+
+      .btn-danger {
+        background: linear-gradient(90deg, #ff4d4d, #ff1a1a);
+        border: none;
+      }
+
+      .btn-danger:hover {
+        background: linear-gradient(90deg, #cc0000, #ff0000);
+      }
+
+      .no-tasks {
+        text-align: center;
+        margin-top: 60px;
+        color: #fff;
+        font-size: 18px;
+      }
+
+      .back-btn {
+        display: inline-block;
+        margin: 40px auto;
+        text-align: center;
+      }
+
+      footer {
+        margin-top: auto;
+        text-align: center;
+        padding: 20px;
+        color: #aaa;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    {% include 'profile/base.html' %}
+
+    <h2>My Tasks</h2>
+    <p class="subtitle">Stay on track — here’s what you’ve planned to accomplish.</p>
+
+    {% if task %}
+      {% for tsk in task %}
+        <div class="task-card">
+          <h3 class="task-title"><i class="fa-solid fa-list-check"></i> {{ tsk.title }}</h3>
+          <p class="task-content">{{ tsk.content }}</p>
+
+          <div class="d-flex justify-content-between mt-4">
+            <a class="btn btn-info" href="{% url 'update-task' tsk.id %}">
+              <i class="fa-solid fa-pen-to-square"></i> Update
+            </a>
+            <a class="btn btn-danger" href="{% url 'delete-task' tsk.id %}">
+              <i class="fa-solid fa-trash"></i> Delete
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="no-tasks">
+        <i class="fa-solid fa-clipboard-list fa-2x mb-3"></i><br>
+        You have no tasks yet. <br>
+        <a href="{% url 'create-task' %}" class="btn btn-info mt-3">
+          <i class="fa-solid fa-plus"></i> Create your first task
+        </a>
+      </div>
+    {% endif %}
+
+    <div class="text-center back-btn">
+      <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-4">
+        <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
+
+    <footer>
+      Taskly © {{ now|date:"Y" }} — Productivity Simplified
+    </footer>
+  </body>
+</html>

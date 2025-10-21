@@ -1,0 +1,41 @@
+h3 {
+
+    color: blue;
+    
+}
+
+.form-layout {
+
+    border-radius: 10px;
+
+    width: 500px;
+
+    margin: 0 auto;
+
+    
+}
+
+.message-text {
+
+    color: white;
+}
+
+.message-timer {
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+h2 i {
+  color: #007bff; /* Bootstrap primary color */
+  margin-right: 8px;
+}
+
+.form-layout {
+  border-radius: 12px;
+}
+
+.text-muted {
+  font-size: 0.95rem;
+}
+
+

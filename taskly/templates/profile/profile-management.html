@@ -1,0 +1,174 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Taskly | Profile Management</title>
+
+    <!-- Bootswatch Solar Theme -->
+    <link rel="stylesheet" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+      body {
+        background: linear-gradient(135deg, #001f3f, #003366, #005f99);
+        color: #f1f1f1;
+        font-family: "Poppins", sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      h2 {
+        text-align: center;
+        font-weight: 700;
+        color: #ffffff;
+        margin-top: 50px;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #e0e0e0;
+        margin-bottom: 30px;
+      }
+
+      .form-section {
+        max-width: 700px;
+        margin: 30px auto;
+        background: rgba(255, 255, 255, 0.97);
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        padding: 40px 50px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .form-section:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+      }
+
+      h3 {
+        color: #003366;
+        font-weight: 700;
+      }
+
+      label {
+        color: #333;
+        font-weight: 500;
+      }
+
+      .btn {
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-weight: 500;
+        transition: 0.3s ease-in-out;
+      }
+
+      .btn-primary {
+        background: linear-gradient(90deg, #007bff, #00bfff);
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(90deg, #0056b3, #0099cc);
+        transform: scale(1.03);
+      }
+
+      .btn-danger {
+        background: linear-gradient(90deg, #ff4d4d, #ff1a1a);
+        border: none;
+      }
+
+      .btn-danger:hover {
+        background: linear-gradient(90deg, #cc0000, #ff0000);
+      }
+
+      .divider {
+        height: 2px;
+        background: linear-gradient(90deg, #007bff, #00bfff);
+        margin: 25px 0;
+        border-radius: 2px;
+      }
+
+      .go-back {
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      footer {
+        margin-top: auto;
+        text-align: center;
+        padding: 20px;
+        color: #aaa;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    {% include 'profile/base.html' %}
+
+    <h2>Profile Management</h2>
+    <p class="subtitle">Manage your account details and settings with ease.</p>
+
+    <!-- Update Profile Info -->
+    <div class="form-section">
+      <h3><i class="fa-solid fa-user-pen"></i> Update Profile Information</h3>
+      <div class="divider"></div>
+
+      <form method="POST" autocomplete="off">
+        {% csrf_token %}
+        {{ user_form.username|as_crispy_field }}
+        {{ user_form.email|as_crispy_field }}
+
+        <div class="text-end mt-4">
+          <input type="submit" class="btn btn-primary" value="Update Profile">
+        </div>
+      </form>
+    </div>
+
+    <!-- Update Profile Picture -->
+    <div class="form-section">
+      <h3><i class="fa-solid fa-camera-retro"></i> Update Profile Picture</h3>
+      <div class="divider"></div>
+
+      <form method="POST" autocomplete="off" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form_2 }}
+
+        <div class="text-end mt-4">
+          <input type="submit" class="btn btn-primary" value="Update Picture">
+        </div>
+      </form>
+    </div>
+
+    <!-- Delete Account -->
+    <div class="form-section">
+      <h3><i class="fa-solid fa-triangle-exclamation text-danger"></i> Delete Account</h3>
+      <div class="divider"></div>
+      <p class="text-muted">Once deleted, your account and all tasks will be permanently removed. Proceed with caution.</p>
+
+      <div class="text-end">
+        <a class="btn btn-danger" href="{% url 'delete-account' %}">
+          <i class="fa-solid fa-trash"></i> Delete Account
+        </a>
+      </div>
+    </div>
+
+    <div class="go-back">
+      <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">
+        <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
+
+    <footer>
+      Taskly © {{ now|date:"Y" }} — Manage with confidence
+    </footer>
+  </body>
+</html>
